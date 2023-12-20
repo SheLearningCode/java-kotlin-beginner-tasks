@@ -1,0 +1,85 @@
+//New class PasswordMain
+package com.company;
+
+import java.util.Scanner;
+
+public class PasswordMain {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Password p1 = new Password();
+
+        String newPassword;
+        do {
+            System.out.println("Now enter your new password: ");
+
+            try {
+                newPassword = sc.nextLine();
+                p1.changePassword(newPassword);
+            } catch (TooLongPasswordException var7) {
+                System.out.println(var7.getMessage());
+            }
+        } while(p1.getPassword().equals(""));
+
+        System.out.println("Your new password is: " + p1.getPassword());
+        System.out.println(" ");
+        System.out.println("Do you want to change your password? (Y/N)");
+        String answer = sc.nextLine();
+
+        int counter;
+        do {
+            counter = 0;
+            if (answer.equals("Y")) {
+                System.out.println("Now enter your new password: ");
+
+                try {
+                    newPassword = sc.nextLine();
+                    p1.changePassword(newPassword);
+                    System.out.println("Your new password is:  " + p1.getPassword());
+                } catch (TooLongPasswordException var6) {
+                    System.out.println(var6.getMessage());
+                    ++counter;
+                }
+            }
+        } while(counter != 0);
+
+    }
+}
+
+//New class TooLongPasswordException
+package com.company;
+
+public class TooLongPasswordException extends Exception {
+    public TooLongPasswordException() {
+    }
+
+    public String getMessage() {
+        return "The password is too long!";
+    }
+}
+
+//New class Password
+package com.company;
+
+public class Password {
+    private String password = "";
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void outputPassword() {
+        System.out.println("Your new password is: " + this.getPassword());
+    }
+
+    public void changePassword(String newPassword) throws TooLongPasswordException {
+        if (newPassword.length() <= 10) {
+            this.password = newPassword;
+        } else {
+            throw new TooLongPasswordException();
+        }
+    }
+}
+
+
+

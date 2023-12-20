@@ -1,0 +1,50 @@
+//Main class
+package com.company;
+
+import java.util.Random;
+
+public class Main {
+
+    public static void main(String[] args) {
+	    // write your code here
+        Bulb [] bulbChain = { new Bulb(), new Bulb(), new Bulb(), new Bulb(), new Bulb()};
+
+        for (int i = 0; i < bulbChain.length; i++) {
+            if(!bulbChain[i].getDamaged()) {
+                System.out.println((i + 1) + ". " + bulbChain[i]);
+            } else {
+                if(bulbChain[i].getDamaged()) {
+                    int bulbCounter = 0;
+                    while (bulbChain[i].getDamaged()) {
+                        System.out.println((i + 1) + ". " + bulbChain[i].toString());
+                        bulbCounter++;
+                        bulbChain[i] = new Bulb();
+                    }
+                    System.out.println((i + 1) + ". " + bulbChain[i].toString() + ", and was " + bulbCounter + " time(s) damaged");
+                }
+            }
+        }
+    }
+
+    static class Bulb {
+        final String SYMBOL_LIGHT = "\uf0e6";
+        private final boolean damaged;
+        private final Random random = new Random();
+
+        private boolean next() {
+            return random.nextBoolean();
+        }
+
+        public Bulb() {
+            this.damaged = next();
+        }
+
+        public String toString() {
+            return this.damaged ? "bulb is damaged" : SYMBOL_LIGHT;
+        }
+
+        public boolean getDamaged() {
+            return damaged;
+        }
+    }
+}

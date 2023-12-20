@@ -1,0 +1,87 @@
+// Task 4.1 a)
+for(int i=1;i<21;i++){
+    System.out.println(i);
+}
+
+// Task 4.1 b+c)
+int counter=0;
+
+   for(int i = 0;i<51;i++){
+       if(i%2==0){
+           System.out.println(i);
+       }
+       counter++;
+   }
+    System.out.println("The loop was performed "+ counter +" times ");
+
+// Task 4.1 d)
+int main( int argc, char ** args ) {
+	int i, inc = 1;
+	for( i = 1; i > 0 ; i+= inc ) {
+		printf( "%i\n", i );
+
+		if( i == 9 ) {
+			inc = -1;
+		}
+	}
+
+	return 0;
+}
+
+// Task 4.2
+for(int i=0;i<101;i++){
+    if(i%3==0){
+        System.out.println("Divisible by 3");
+    }
+    if(i%4==0){
+        System.out.println("Divisible by 4");
+    }
+    if(i%3==0 && i%4==0){
+        System.out.println("Divisible by 3 and 4");
+    }
+    if(i%3!=0 && i%4!=0) {
+        System.out.println(i);
+    }
+}
+
+// Task 4.3
+for(int x = 0; x < 11; x++){
+    String output = "";
+    for(int i = 1; i < x; i ++){
+        output += i;
+    }
+    System.out.println(output);
+}
+
+// Task 4.4 a)
+boolean var=true;
+   int counter = 0;
+
+   while(var){
+       counter++;
+       int num = 1 + (int)(Math.random() * ((6-1)+1));
+       System.out.println(num);
+       if(num == 6){
+           var=false;
+       }
+   }
+    System.out.println("It was "+counter+" times rolled until the 6 came");
+}
+
+// Task 4.4 b)
+boolean var=true;
+int counter = 0;
+int counter6 = 0;
+
+while(var){
+    counter++;
+    int num = 1 + (int)(Math.random() * ((6-1)+1));
+    System.out.println(num);
+    if(num == 6){
+        counter6++;
+    }
+    if(counter6 ==2){
+        var=false;
+    }
+}
+ System.out.println("It was "+counter+" times rolled until the 6 came twice");

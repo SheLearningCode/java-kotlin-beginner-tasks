@@ -1,0 +1,132 @@
+//New class Vehicle
+package com.company;
+
+public class Vehicle {
+    private String motorId;
+    private String colour;
+    private String numberPlate;
+
+    Vehicle(String motorId, String colour, String numberPlate) {
+        this.motorId = motorId;
+        this.colour = colour;
+        this.numberPlate = numberPlate;
+    }
+
+    @Override
+    public String toString() {
+        return "Vehicle{" +
+                "motorId='" + motorId + '\'' +
+                ", colour='" + colour + '\'' +
+                ", numberPlate='" + numberPlate + '\'' +
+                '}';
+    }
+
+    public String getMotorId() {
+        return motorId;
+    }
+
+    public void setMotorId(String motorId) {
+        this.motorId = motorId;
+    }
+
+    public String getColour() {
+        return colour;
+    }
+
+    public void setColour(String colour) {
+        this.colour = colour;
+    }
+
+    public String getNumberPlate() {
+        return numberPlate;
+    }
+
+    public void setNumberPlate(String numberPlate) {
+        this.numberPlate = numberPlate;
+    }
+}
+
+//New class Car
+package com.company;
+
+public class Car extends Vehicle {
+    private int wheelCount;
+
+    public Car(String motorId, String colour, String numberPlate, int wheelCount) {
+        super(motorId, colour, numberPlate);
+        this.wheelCount = wheelCount;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + '\'' +
+                ", Car{" +
+                "wheelCount='" + wheelCount + '\'' +
+                '}';
+    }
+
+    public int getWheelCount() {
+        return wheelCount;
+    }
+
+    public void setWheelCount(int wheelCount) {
+        this.wheelCount = wheelCount;
+    }
+}
+
+
+//New class Truck
+package com.company;
+
+public class Truck extends Vehicle{
+    private int wheelCount;
+
+    public Truck(String motorId, String colour, String numberPlate, int wheelCount) {
+        super(motorId, colour, numberPlate);
+        this.wheelCount = wheelCount;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + '\'' +
+                ", Truck{" +
+                "wheelCount='" + wheelCount + '\'' +
+                '}';
+    }
+
+    public int getWheelCount() {
+        return wheelCount;
+    }
+
+    public void setWheelCount(int wheelCount) {
+        this.wheelCount = wheelCount;
+    }
+}
+
+//New class Motorcycle
+package com.company;
+
+class Motorcycle extends Vehicle{
+    private int wheelCount;
+
+    public Motorcycle(String motorId, String colour, String numberPlate, int wheelCount) {
+        super(motorId, colour, numberPlate);
+        this.wheelCount = wheelCount;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + '\'' +
+                ", Motorcycle{" +
+                "wheelCount='" + wheelCount + '\'' +
+                '}';
+    }
+
+    public int getWheelCount() {
+        return wheelCount;
+    }
+
+    public void setWheelCount(int wheelCount) {
+        this.wheelCount = wheelCount;
+    }
+}

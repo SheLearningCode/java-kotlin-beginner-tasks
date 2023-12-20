@@ -1,0 +1,21 @@
+//Main class
+package com.company;
+
+import java.util.HashMap;
+
+public class Main {
+
+    public static void main(String[] args) {
+	    // write your code here
+        HashMap<String, Integer> phoneBookDirectory = new HashMap<String, Integer>();
+        phoneBookDirectory.put("Bernd", 7119020);
+        phoneBookDirectory.put("Sarah", 7112044);
+        phoneBookDirectory.put("Thiko", 7123094);
+        phoneBookDirectory.put("Larah", 7112061);
+        phoneBookDirectory.put("Heiko", 7123095);
+
+        for (String i : phoneBookDirectory.keySet()) {
+            System.out.println(i + ":" + phoneBookDirectory.get(i));
+        }
+    }
+}

@@ -1,0 +1,87 @@
+//New class Bank
+package com.company;
+
+public class Bank {
+    private static double accountBalance;
+    private static final double DISPOLIMIT = -1000;
+
+    public static void deposit(double amount) {
+        accountBalance += amount;
+        System.out.println("Your account balance is now " + accountBalance);
+    }
+
+    public static void withdraw(double amount) throws IllegalOverdraftException {
+        if (accountBalance - amount >= DISPOLIMIT) {
+            accountBalance -= amount;
+            System.out.println("Your account balance is now " + accountBalance + " and your overdraft limit of " + DISPOLIMIT +  " has not been reached.");
+        } else {
+            throw new IllegalOverdraftException();
+        }
+    }
+
+    public static void accountBalanceRequest() {
+        System.out.println("Your account balance is " + accountBalance);
+    }
+}
+
+//New class BankMain
+package com.company;
+
+import java.util.Scanner;
+
+public class BankMain {
+
+    public static void main(String[] args) throws IllegalOverdraftException {
+        int menu = selection();
+        Scanner sc = new Scanner(System.in);
+
+        while(menu != 4) {
+            double amount;
+            switch(menu) {
+                case 1:
+                    Bank.accountBalanceRequest();
+                    menu = selection();
+                    break;
+                case 2:
+                    System.out.println("Enter the amount you wish to deposit here: ");
+                    amount = sc.nextDouble();
+                    Bank.deposit(amount);
+                    menu = selection();
+                    break;
+                case 3:
+                    System.out.println("Enter the amount you want to withdraw here: ");
+                    amount = sc.nextDouble();
+
+                    try {
+                        Bank.withdraw(amount);
+                    } catch (IllegalOverdraftException var6) {
+                        System.out.println(var6.getMessage());
+                    }
+
+                    menu = selection();
+                    break;
+                default:
+                    menu = selection();
+            }
+        }
+
+    }
+
+    public static int selection() {
+        System.out.println("Welcome to your Bank, please make your selection: : \n1 = Account Balance \n2 = Deposite \n3 = Withdraw \n4 = Break up");
+        Scanner sc = new Scanner(System.in);
+        return sc.nextInt();
+    }
+}
+
+//New class IllegalOverdraftException
+package com.company;
+
+public class IllegalOverdraftException extends Exception {
+    public IllegalOverdraftException() {
+    }
+
+    public String getMessage() {
+        return "Your DISPOLIMIT of -1000 has been reached!";
+    }
+}

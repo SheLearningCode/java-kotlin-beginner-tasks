@@ -1,0 +1,71 @@
+// Task 5.1
+public static void main(String[] args) {
+    double bodyWeight = 82.0D;
+    double bodyHeight = 1.77D;
+    double b = bmi(bodyWeight, bodyHeight);
+    System.out.println("Your bmi is:" + b);
+    if (18.5D >= b) {
+        System.out.println("Underweight");
+    } else if (24.9D >= b) {
+        System.out.println("Normal weight");
+    } else if (25.0D <= b) {
+        System.out.println("Overweight");
+    }
+}
+public static double bmi(double m, double h) {
+    double b = m / (h * h);
+    return b;
+}
+
+// Task 5.2
+public static void main(String[] args) {
+    Scanner scan = new Scanner(System.in);
+    System.out.println("Enter a calculation with the arithmetic signs (+ * - /:");
+    System.out.println("Number1:");
+    double a = (double)scan.nextInt();
+    System.out.println("Arithmetic sign:");
+    String x = scan.next();
+    System.out.println("Number2:");
+    double b = (double)scan.nextInt();
+    System.out.println(a + x + b + ":");
+    if (x.equals("*")) {
+        System.out.println(getMultiplication(a, b));
+    } else if (x.equals("+")) {
+        System.out.println(getAddition(a, b));
+    } else if (x.equals("-")) {
+        System.out.println(getSubtraction(a, b));
+    } else if (x.equals("/")) {
+        System.out.println(getDivision(a, b));
+    }
+}
+public static double getAddition(double Object1, double Object2) {
+    return double Addition = Object1 + Object2;
+}
+
+public static double getSubtraction(double Object1, double Object2) {
+    return double Subtraction = Object1 - Object2;
+}
+
+public static double getMultiplication(double Object1, double Object2) {
+    return double Multiplication = Object1 * Object2;
+}
+
+public static double getDivision(double Object1, double Object2) {
+    return double Division = Object1 / Object2;
+}
+
+// Task 5.3
+public static void main(String[] args) {
+    Scanner scan = new Scanner(System.in);
+    System.out.println("Number 1:");
+    double a = scan.nextInt();
+    System.out.println("Number 2:");
+    double b = scan.nextInt();
+    System.out.println(a + "^" + b + ":");
+    System.out.println(getPower(a, b));
+}
+
+public static double getPower(double Object1, double Object) {
+    return Math.pow(Object1,Object2);
+}
+

@@ -1,0 +1,202 @@
+//New ISINAlgorithmJava class
+package main;
+
+import java.util.ArrayList;
+
+public class ISINAlgorithmJava {
+
+    /**
+     * Takes an ISIN and applies the ISIN-Algorithm to it.
+     *
+     * @param ISIN which is to be proved.
+     * @return the corresponding value as Integer according to the ISIN-Algorithm.
+     */
+    public static int proveISIN(String ISIN) {
+        String parsedISIN = parseISIN(ISIN);
+        String weight = calculateWeight(parsedISIN);
+        ArrayList<Integer> weightAsIntArray = convertStringToVector(weight);
+        ArrayList<Integer> parsedISINasIntArray = convertStringToVector(parsedISIN);
+        ArrayList<Integer> product = multiplyTwoVectors(weightAsIntArray, parsedISINasIntArray);
+
+        System.out.println("_________________________________________________________________");
+        System.out.println("Original ISIN:         " + ISIN);
+        System.out.println("Parsed ISIN:           " + parsedISIN);
+        System.out.println("Weight:                " + weight);
+        System.out.println("_________________________________________________________________");
+        System.out.println("Weight as Int Array:   " + weightAsIntArray);
+        System.out.println("Parsed ISIN:           " + parsedISINasIntArray);
+        System.out.println("Product:               " + product);
+
+        String productAsString = convertVectorToString(product);
+        ArrayList<Integer> productAsVector = convertStringToVector(productAsString);
+        int crossSum = calcCrossSumOfVector(productAsVector);
+        int result = calculateModulo(crossSum);
+
+        System.out.println("_________________________________________________________________");
+        System.out.println("Cross sum:             " + crossSum);
+        System.out.println("Result:                " + result);
+        System.out.println("_________________________________________________________________");
+
+        return result >= 10 ? 0 : result;
+    }
+
+    /**
+     * Goes through the ISIN character by character and if there is a letter, it is replaced with the specific number of the alphabetObjectList.
+     *
+     * @param ISIN which is to be parsed.
+     * @return the parsed ISIN as String.
+     */
+    private static String parseISIN(String ISIN) {
+        StringBuilder letters = new StringBuilder();
+        AlphabetObject[] alphabetObjectArray = createAlphabetObjectList();
+
+        for(int index = 0; index < ISIN.length(); index++) {
+            boolean flag = Character.isDigit(ISIN.charAt(index));
+            if(!flag) {
+                letters.append(getAlphabeticValue(alphabetObjectArray, ISIN.charAt(index)));
+            } else {
+                letters.append(ISIN.charAt(index));
+            }
+        }
+        return letters.toString();
+    }
+
+    /**
+     * Creates the weighting of a parsed ISIN as a String.
+     *
+     * @param parsedISIN from which the weighting is created.
+     * @return weighting as String.
+     */
+    private static String calculateWeight(String parsedISIN) {
+        StringBuilder weight = new StringBuilder();
+        for (int index = 0; index < parsedISIN.length() - 1; index++) {
+            if (weight.length() == 0) {
+                weight.insert(0,"2");
+            }
+            weight.insert(0, index % 2 == 0 ? "1" : "2");
+        }
+        return weight.toString();
+    }
+
+    /**
+     * Creates the product of two Integer lists.
+     *
+     * @param vectorA first Integer list.
+     * @param vectorB second Integer list.
+     * @return the product vector of vectorA and vectorB.
+     */
+    private static ArrayList<Integer> multiplyTwoVectors(ArrayList<Integer> vectorA, ArrayList<Integer> vectorB) {
+        ArrayList<Integer> resultVector = new ArrayList<>();
+        for (int index = 0; index < vectorA.size(); index++) {
+            resultVector.add(index, vectorA.get(index) * vectorB.get(index));
+        }
+        return resultVector;
+    }
+
+    /**
+     * Calculates the cross sum of a vector.
+     *
+     * @param vector from which the cross sum is to be calculated.
+     * @return the cross sum of given [vector].
+     */
+    private static int calcCrossSumOfVector(ArrayList<Integer> vector) {
+        int result = 0;
+        for (int number : vector) {
+            result = result + number;
+        }
+        return result;
+    }
+
+    /**
+     * Converts an Integer vector to String.
+     *
+     * @param vector to be converted into a string.
+     * @return the vector as a String.
+     */
+    private static String convertVectorToString(ArrayList<Integer> vector) {
+        StringBuilder vectorAsString = new StringBuilder();
+        for (int number : vector) {
+            vectorAsString.append(number);
+        }
+        return vectorAsString.toString();
+    }
+
+    /**
+     * Converts a String to an Integer vector.
+     *
+     * @param string to be converted into an Integer vector.
+     * @return the String as a vector.
+     */
+    private static ArrayList<Integer> convertStringToVector(String string) {
+        ArrayList<Integer> vector = new ArrayList<>();
+        for (int i = 0; i < string.length(); i++) {
+            vector.add(Character.getNumericValue(string.charAt(i)));
+        }
+        return vector;
+    }
+
+    /**
+     * Calculates the modulo of 10 of the passing parameter and subtracts the remainder of it from 10.
+     *
+     * @param value to be used for the calculation.
+     * @return The calculated value, but if this is greater than 10, then zero.
+     */
+    private static int calculateModulo(int value) {
+        int modulo10 = value % 10;
+        int subtraction = 10 - modulo10;
+
+        return subtraction > 10 ? 0 : subtraction;
+    }
+
+    /**
+     * Creates a list of [main.AlphabetObject]s, which have a letter of the alphabet as a key and the corresponding number as a value.
+     *
+     * @return the created list of [main.AlphabetObject]s.
+     */
+    private static AlphabetObject[] createAlphabetObjectList() {
+        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        AlphabetObject[] alphabetObjectArray = new AlphabetObject[26];
+        for(int index = 0; index < alphabetObjectArray.length; index++) {
+            alphabetObjectArray[index] = new AlphabetObject(alphabet.charAt(index), index + 10);
+        }
+        return alphabetObjectArray;
+    }
+
+    /**
+     * Goes through a list of [main.AlphabetObject]s and checks whether the [main.AlphabetObject.key] matches the passed [character].
+     *
+     * @param alphabetObjectArray which is run through.
+     * @param character which is compared with the [main.AlphabetObject.key]s.
+     * @return the [main.AlphabetObject.value] of the matching [main.AlphabetObject]'s.
+     */
+    private static int getAlphabeticValue(AlphabetObject[] alphabetObjectArray, char character) {
+        int result = 0;
+        for (AlphabetObject alphabeticValue : alphabetObjectArray) {
+            if (alphabeticValue.key == character) {
+                result = alphabeticValue.value;
+            }
+        }
+        return result;
+    }
+}
+
+class AlphabetObject {
+    char key;
+    int value;
+
+    AlphabetObject(char key, int value) {
+        this.key = key;
+        this.value = value;
+    }
+}
+
+//Main class
+public class Main {
+
+    public static void main(String[] args) {
+	// write your code here
+        String ISIN = "DE000555750";
+        ISINAlgorithmJava.proveISIN(ISIN);
+    }
+}
